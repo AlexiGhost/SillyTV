@@ -6,7 +6,7 @@
  * Time: 23:16
  */
 
-class Encryptor
+class Encrypt
 {
     private $_encoding_prefix;
     private $_encoding_suffix;
