@@ -5,7 +5,7 @@
  * Date: 15/11/2018
  * Time: 23:27
  */
-require_once("PHP/model/Alert.php");
+require_once(__DIR__."/../model/Alert.php");
 //Alerts array init
 $_POST['alerts'] = isset($_POST['alerts']) ? $_POST['alerts'] : array();
 

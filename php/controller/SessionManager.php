@@ -7,11 +7,10 @@
  */
 
 session_start();
-require_once("PHP/model/Encrypt.php");
-require_once("PHP/model/Connection.php");
-require_once("PHP/controller/AlertManager.php");
-require_once("PHP/model/Alert.php");
-require_once("PHP/model/LanguageManager.php");
+require_once(__DIR__."/../model/Encrypt.php");
+require_once(__DIR__."/../model/Connection.php");
+require_once(__DIR__."/AlertManager.php");
+require_once(__DIR__."/../model/Alert.php");
 
 $connection = isset($connection) ? $connection : new Connection();
 $sManager = SessionManager::getInstance();
@@ -48,7 +47,7 @@ class SessionManager
                 return true;
             }
         }
-        AlertManager::addAlert(LangFR::AUTHENTIFICATION_REQUIRED, AlertType::DANGER);
+        AlertManager::addAlert(LangFR::AUTHENTICATION_REQUIRED, AlertType::DANGER);
         http_response_code(HttpResponseCode_ErrorClient::UNAUTHORIZED);
         return false;
     }

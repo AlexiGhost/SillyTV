@@ -6,13 +6,13 @@
  * Time: 02:04
  */
 
-class HttpResponseCode_Info extends SplEnum
+class HttpResponseCode_Info
 {
-    const CONTINUE = 100,
+    const CONTINUE_INFO = 100,
         SWITCHING_PROTOCOL = 101;
 }
 
-class HttpResponseCode_Success extends SplEnum
+class HttpResponseCode_Success
 {
     const OK = 200,
     CREATED = 201,
@@ -23,7 +23,7 @@ class HttpResponseCode_Success extends SplEnum
     PARTIAL_CONTENT = 206;
 }
 
-class HttpResponseCode_Redirection extends SplEnum
+class HttpResponseCode_Redirection
 {
     const MULTIPLE_CHOICE = 300,
     MOVED_PERMANENTLY = 301,
@@ -34,7 +34,7 @@ class HttpResponseCode_Redirection extends SplEnum
     PERMANENTLY_REDIRECT = 308;
 }
 
-class HttpResponseCode_ErrorClient extends SplEnum
+class HttpResponseCode_ErrorClient
 {
     const BAD_REQUEST = 400,
     UNAUTHORIZED = 401,
@@ -61,7 +61,7 @@ class HttpResponseCode_ErrorClient extends SplEnum
     UNAVAILABLE_FOR_LEGAL_REASONS = 451;
 }
 
-class HttpResponseCode_ErrorServer extends SplEnum
+class HttpResponseCode_ErrorServer
 {
     const INTERNAL_SERVER_ERROR = 500,
     NOT_IMPLEMENTED = 501,

@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__."/../constants/DatabaseInformation.php");
 class Connection {
     private $_db;
     

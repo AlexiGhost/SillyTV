@@ -6,21 +6,12 @@
  * Time: 23:27
  */
 
-class AlertType extends SplEnum
+class AlertType
 {
     const SUCCESS = "success";
     const INFO = "info";
     const WARNING = "warning";
     const DANGER = "danger";
-
-    public static function isAlertType($type) {
-        try {
-            new AlertType($type);
-            return true;
-        } catch (UnexpectedValueException $uve) {
-            return false;
-        }
-    }
 }
 
 class Alert
@@ -36,7 +27,7 @@ class Alert
     //METHODS
     public function __tostring() {
         //TODO implement method
-        throw new LogicException();
+        throw new LogicException("not implemented");
         return "";
     }
     //Getters/Setters

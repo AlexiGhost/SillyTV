@@ -6,7 +6,7 @@
  * Time: 01:59
  */
 
-class SessionData extends SplEnum
+class SessionData
 {
     //USER
     const USER = "user",

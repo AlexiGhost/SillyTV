@@ -6,8 +6,8 @@
  * Time: 23:27
  */
 
-require_once("PHP/model/Planning.php");
-require_once("PHP/model/Connection.php");
+require_once(__DIR__."/../model/Planning.php");
+require_once(__DIR__."/../model/Connection.php");
 
 class PlanningManager
 {

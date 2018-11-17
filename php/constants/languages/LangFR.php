@@ -6,7 +6,7 @@
  * Time: 23:41
  */
 
-class LangFR extends SplEnum
+class LangFR
 {
     /*==================================================================================================================
      * LABEL LIST
@@ -16,7 +16,7 @@ class LangFR extends SplEnum
         INCORRECT_PASSWORD = "Mot de passe incorrect",
         INCORRECT_USERNAME = "Nom d'utilisateur incorrect",
         DISCONNECTED = "Vous avez été deconnecté",
-        AUTHENTIFICATION_REQUIRED = "Authentification requise",
+        AUTHENTICATION_REQUIRED = "Authentification requise",
         WELCOME = "Bienvenue",
         SESSION_INACTIVE = "Vous n'êtes pas connecté";
     //==================================================================================================================

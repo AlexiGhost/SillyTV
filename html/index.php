@@ -5,6 +5,7 @@
  * Date: 14/11/2018
  * Time: 23:03
  */
+require("../php/required.php");
 ?>
 <!DOCTYPE html>
 <html>
