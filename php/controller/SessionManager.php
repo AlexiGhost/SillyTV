@@ -57,16 +57,18 @@ class SessionManager
         if($this->isSessionActive()){
             if($_SESSION[SessionData::USER][SessionData::USER_LEVEL] <= $requiredLevel){
                 return true;
-            } else
+            } else {
                 AlertManager::addAlert(LangFR::LEVEL_TOO_LOW, AlertType::DANGER);
-        } else
+                http_response_code(HttpResponseCode_ErrorClient::FORBIDDEN);
+            }
+        } else {
             AlertManager::addAlert(LangFR::SESSION_INACTIVE, AlertType::DANGER);
-        http_response_code(HttpResponseCode_ErrorClient::FORBIDDEN);
+            http_response_code(HttpResponseCode_ErrorClient::UNAUTHORIZED);
+        }
         return false;
     }
 
     //Log the user
-    //TODO check method (imported)
     public function login($connection){
         if(isset($_POST['name'])
             & isset($_POST['password'])){
