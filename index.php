@@ -15,7 +15,8 @@ require("php/required.php");
 </head>
 <body>
     <div class="container-fluid">
-        <p>TODO</p>
+        <h1>INDEX</h1>
+        <a class="page-link" href="example_modal.php">exemple de popup (BootStrap)</a>
     </div>
 </body>
 </html>
