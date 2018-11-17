@@ -4,5 +4,4 @@
 **/.idea
 
 #Sensitive files
-PHP/model/Connection.php
-**/Connection.php
+**/DatabaseInformation.php

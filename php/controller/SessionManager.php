@@ -61,7 +61,7 @@ class SessionManager
             } else
                 AlertManager::addAlert(LangFR::LEVEL_TOO_LOW, AlertType::DANGER);
         } else
-            AlertManager::addAlert(LangFR::SESSION_INACTIVE, AlertType::DANGER)
+            AlertManager::addAlert(LangFR::SESSION_INACTIVE, AlertType::DANGER);
         http_response_code(HttpResponseCode_ErrorClient::FORBIDDEN);
         return false;
     }
@@ -93,7 +93,7 @@ class SessionManager
     //Destroy the current session
     public function destroySession(){
         $_SESSION = null;
-        session_destroy()
-        AlertManager::addAlert(LangFR::DISCONNECTED);
+        session_destroy();
+        AlertManager::addAlert(LangFR::DISCONNECTED, AlertType::INFO);
     }
 }

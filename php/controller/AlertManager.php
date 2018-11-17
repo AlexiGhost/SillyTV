@@ -11,7 +11,7 @@ $_POST['alerts'] = isset($_POST['alerts']) ? $_POST['alerts'] : array();
 
 class AlertManager
 {
-    public static function addAlert(langfr $message, AlertType $type)
+    public static function addAlert(string $message, string $type)
     {
         array_push($_POST['alerts'], new Alert($message, $type));
     }
