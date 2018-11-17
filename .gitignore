@@ -1,6 +1,6 @@
 #PHPStorm files
 .idea
-.idea/**
+.idea/*
 **/.idea
 
 #Sensitive files
