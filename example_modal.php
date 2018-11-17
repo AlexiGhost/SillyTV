@@ -17,7 +17,7 @@ require("php/required.php");
     <div class="container-fluid">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Exemple de logiddn
+            Exemple de login
         </button>
 
         <!-- POPUP -->
