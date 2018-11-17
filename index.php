@@ -12,9 +12,10 @@ require("php/required.php");
 <head>
     <?php include("partials/header.php") ?>
     <title><?php echo WEBSITE_NAME ?></title>
-    <a class="btn-primary">test</a>
 </head>
 <body>
-    <p>Hello World !</p>
+    <div class="container-fluid">
+        <p>TODO</p>
+    </div>
 </body>
 </html>

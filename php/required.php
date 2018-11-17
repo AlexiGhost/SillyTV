@@ -13,3 +13,5 @@ require_once(__DIR__."/constants/constants.php");
 //controllers
 require_once(__DIR__."/controller/AlertManager.php");
 require_once(__DIR__."/controller/SessionManager.php");
+//model
+require_once(__DIR__."/model/Connection.php");

@@ -50,8 +50,8 @@ class PlanningManager
         }
     }
 
-    //TODO
     public function getDayCount($day, $currentUserOnly = false){
-
+        //TODO implement method
+        throw new LogicException();
     }
 }
