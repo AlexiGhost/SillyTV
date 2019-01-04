@@ -12,7 +12,8 @@ class Label
      * LABEL LIST
      *------------------------------------------------------------------------------------------------------------------*/
     //ALERTS
-    const LEVEL_TOO_LOW = "Niveau insuffisant",
+    const
+        OPERATION_NOT_ALLOWED = "Vous n'avez pas les droits pour effectuer cette opération",
         INCORRECT_PASSWORD = "Mot de passe incorrect",
         INCORRECT_USERNAME = "Nom d'utilisateur incorrect",
         DISCONNECTED = "Vous avez été deconnecté",

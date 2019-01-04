@@ -7,20 +7,21 @@
  */
 require_once(__DIR__ . "/../model/Alert.php");
 //Alerts array init
-$_POST['alerts'] = isset($_POST['alerts']) ? $_POST['alerts'] : array();
+$_SESSION[SessionData::ALERTS] = isset($_SESSION[SessionData::ALERTS]) ? $_SESSION[SessionData::ALERTS] : array();
 
 class AlertManager
 {
     public static function addAlert(string $message, string $type)
     {
-        array_push($_POST['alerts'], new Alert($message, $type));
+        array_push($_SESSION[SessionData::ALERTS], new Alert($message, $type));
     }
 
+    /**Display all the alerts and clear the list*/
     public static function displayAlerts()
     {
-        foreach ($_POST['alerts'] as $alert) {
+        foreach ($_SESSION[SessionData::ALERTS] as $alert) {
             echo $alert;
         }
-        $_POST['alerts'] = array();
+        $_SESSION[SessionData::ALERTS] = array();
     }
 }

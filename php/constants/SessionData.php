@@ -9,7 +9,13 @@
 class SessionData
 {
     //USER
-    const USER = "user",
+    const
+        USER = "user",
         USER_LEVEL = "level",
-        USER_PSEUDO = "pseudo";
+        USER_PSEUDO = "pseudo",
+        USER_ID = "id";
+
+    //ALERTS
+    const
+        ALERTS = "alerts";
 }

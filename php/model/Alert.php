@@ -13,7 +13,7 @@ class AlertType
     const WARNING = "warning";
     const DANGER = "danger";
 
-    public static function isAlertType(AlertType $type)
+    public static function isAlertType(string $type)
     {
         switch ($type){
             case self::SUCCESS:
@@ -37,7 +37,7 @@ class Alert
     private $_type;
     private $_message;
     //CONSTRUCTORS
-    public function __construct(string $message, AlertType $type) {
+    public function __construct(string $message, string $type) {
         $this->setAlertType($type);
         $this->setMessage($message);
     }
@@ -57,7 +57,7 @@ class Alert
     public function getAlertType() {
         return $this->_type;
     }
-    public function setAlertType(AlertType $type) {
+    public function setAlertType(string $type) {
         if(AlertType::isAlertType($type)) {
             $this->_type = $type;
         } else {
