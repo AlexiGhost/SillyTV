@@ -47,7 +47,7 @@ class SessionManager
                 return true;
             }
         }
-        AlertManager::addAlert(LangFR::AUTHENTICATION_REQUIRED, AlertType::DANGER);
+        AlertManager::addAlert(Label::AUTHENTICATION_REQUIRED, AlertType::DANGER);
         http_response_code(HttpResponseCode_ErrorClient::UNAUTHORIZED);
         return false;
     }
@@ -58,11 +58,11 @@ class SessionManager
             if($_SESSION[SessionData::USER][SessionData::USER_LEVEL] <= $requiredLevel){
                 return true;
             } else {
-                AlertManager::addAlert(LangFR::LEVEL_TOO_LOW, AlertType::DANGER);
+                AlertManager::addAlert(Label::LEVEL_TOO_LOW, AlertType::DANGER);
                 http_response_code(HttpResponseCode_ErrorClient::FORBIDDEN);
             }
         } else {
-            AlertManager::addAlert(LangFR::SESSION_INACTIVE, AlertType::DANGER);
+            AlertManager::addAlert(Label::SESSION_INACTIVE, AlertType::DANGER);
             http_response_code(HttpResponseCode_ErrorClient::UNAUTHORIZED);
         }
         return false;
@@ -81,12 +81,12 @@ class SessionManager
                 if($this->_encrypt->checkPassword($_POST['password'], $row['password'])){
                     $_SESSION[SessionData::USER][SessionData::USER_PSEUDO]=$row['pseudo'];
                     $_SESSION[SessionData::USER][SessionData::USER_LEVEL]=$row['level'];
-                    AlertManager::addAlert(LangFR::WELCOME." ".$row['pseudo']);
+                    AlertManager::addAlert(Label::WELCOME." ".$row['pseudo']);
                 } else {
-                    AlertManager::addAlert(LangFR::INCORRECT_PASSWORD, AlertType::DANGER);
+                    AlertManager::addAlert(Label::INCORRECT_PASSWORD, AlertType::DANGER);
                 }
             } else {
-                AlertManager::addAlert(LangFR::INCORRECT_USERNAME, AlertType::DANGER);
+                AlertManager::addAlert(Label::INCORRECT_USERNAME, AlertType::DANGER);
             }
         }
     }
@@ -95,6 +95,6 @@ class SessionManager
     public function destroySession(){
         $_SESSION = null;
         session_destroy();
-        AlertManager::addAlert(LangFR::DISCONNECTED, AlertType::INFO);
+        AlertManager::addAlert(Label::DISCONNECTED, AlertType::INFO);
     }
 }
