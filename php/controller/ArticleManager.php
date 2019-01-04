@@ -6,7 +6,7 @@
  * Time: 23:27
  */
 
-require_once(__DIR__."/../model/AArticle.php");
+require_once(__DIR__."/../model/Article.php");
 require_once(__DIR__."/../model/Connection.php");
 require_once(__DIR__."/SessionManager.php");
 
@@ -16,12 +16,12 @@ class ArticleManager
     private $_connection;
 
 //CONSTRUCTORS
-    public function __construct($connection){
+    public function __construct(Connection $connection){
         $this->_connection = $connection;
     }
 
 //GETTERS / SETTERS
-    private function getArticles($currentUserOnly = false, $limit = null){
+    private function getArticles(bool $currentUserOnly = false, int $limit = null){
         //TODO implement method
         throw new LogicException();
     }
@@ -30,9 +30,9 @@ class ArticleManager
     public function getAllowedArticles() {
         $sManager = SessionManager::getInstance();
         if($sManager->isAuthorized(2)){
-            return getArticles();
+            return $this->getArticles();
         } else {
-            return getArticles(true);
+            return $this->getArticles(true);
         }
     }
 

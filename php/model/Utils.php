@@ -8,7 +8,7 @@
 
 class Utils
 {
-    public static function redirect($destination="index.php") {
+    public static function redirect(string $destination="index.php") {
         header('Location: '.$destination);
         exit();
     }

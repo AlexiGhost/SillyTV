@@ -15,7 +15,7 @@ class PlanningManager
     const Days = array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche");
     var $_connection;
 //CONSTRUCTORS
-    public function __construct($connection){
+    public function __construct(Connection $connection){
         $this->_connection = $connection;
     }
 //METHODS
@@ -23,17 +23,17 @@ class PlanningManager
         return self::Days[$day-1];
     }
 //GETTERS / SETTERS
-    public function getPlannings($currentUserOnly = false){
+    public function getPlannings(bool $currentUserOnly = false){
         //TODO implement method
         throw new LogicException();
     }
 
-    public function getDailyPlannings($day, $currentUserOnly = false){
+    public function getDailyPlannings(int $day, bool $currentUserOnly = false){
         //TODO implement method
         throw new LogicException();
     }
 
-    public function getAllowedPlanning($day = 0){
+    public function getAllowedPlanning(int $day = 0){
         if(!isset($sManager)){ $sManager = sessionManager::getInstance(); }
         if($sManager->isAuthorized(2)){
             if($day == 0){
@@ -50,7 +50,7 @@ class PlanningManager
         }
     }
 
-    public function getDayCount($day, $currentUserOnly = false){
+    public function getDayCount(int $day, bool $currentUserOnly = false){
         //TODO implement method
         throw new LogicException();
     }

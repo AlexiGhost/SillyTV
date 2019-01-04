@@ -69,7 +69,7 @@ class SessionManager
     }
 
     //Log the user
-    public function login($connection){
+    public function login(Connection $connection){
         if(isset($_POST['name'])
             & isset($_POST['password'])){
             $query = $connection->getDB()->prepare(
@@ -81,7 +81,7 @@ class SessionManager
                 if($this->_encrypt->checkPassword($_POST['password'], $row['password'])){
                     $_SESSION[SessionData::USER][SessionData::USER_PSEUDO]=$row['pseudo'];
                     $_SESSION[SessionData::USER][SessionData::USER_LEVEL]=$row['level'];
-                    AlertManager::addAlert(Label::WELCOME." ".$row['pseudo']);
+                    AlertManager::addAlert(Label::WELCOME." ".$row['pseudo'], AlertType::INFO);
                 } else {
                     AlertManager::addAlert(Label::INCORRECT_PASSWORD, AlertType::DANGER);
                 }

@@ -32,28 +32,28 @@ class Article
     public function getID(){
         return $this->_id;
     }
-    public function setID($id){
+    public function setID(int $id){
         $this->_id = $id;
     }
 
     public function getAuthor(){
         return $this->_author;
     }
-    public function setAuthor($author){
+    public function setAuthor(string $author){
         $this->_author = $author;
     }
 
     public function getTitle(){
         return $this->_title;
     }
-    public function setTitle($title){
+    public function setTitle(string $title){
         $this->_title = $title;
     }
 
     public function getContent(){
         return html_entity_decode($this->_content);
     }
-    public function setContent($content){
+    public function setContent(string $content){
         $this->_content = $content;
     }
 
