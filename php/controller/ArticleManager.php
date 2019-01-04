@@ -31,7 +31,8 @@ class ArticleManager
         if($limit != 0)
         $sql = $sql." LIMIT ".$limit;
         $query = $this->_connection->getDB()->prepare($sql);
-        $query->bindParam("user", $_SESSION[SessionData::USER_ID]);
+        if($currentUserOnly)
+            $query->bindParam("user", $_SESSION[SessionData::USER][SessionData::USER_PSEUDO]);
         $query->execute();
         while($article = $query->fetch()){
             array_push($articles, new Article(
@@ -46,6 +47,7 @@ class ArticleManager
     }
 
     //Administration
+    //FIXME use another authorization system
     public function getAllowedArticles() {
         $sManager = SessionManager::getInstance();
         if($sManager->isAuthorized(2)){
@@ -58,5 +60,15 @@ class ArticleManager
     //Display
     public function getRecentArticles() {
         return $this->getArticles(false, 10);
+    }
+
+    public function addArticle(Article $article) {
+        $sql = "INSERT INTO article (author, title, content, creation_date) VALUES ("
+            .$article->getAuthor().","
+            .$article->getTitle().","
+            .$article->getContent().","
+            .$article->getCreationDate().")";
+        $query = $this->_connection->getDB()->prepare($sql);
+        $query->execute();
     }
 }

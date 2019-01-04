@@ -36,7 +36,7 @@ class Planning
         $this->_id = $id;
     }
 
-    public function getUserPseudo(){
+    public function getPseudo(){
         return $this->_userPseudo;
     }
     public function setUserPseudo(string $pseudo){

@@ -12,8 +12,7 @@ class SessionData
     const
         USER = "user",
         USER_LEVEL = "level",
-        USER_PSEUDO = "pseudo",
-        USER_ID = "id";
+        USER_PSEUDO = "pseudo";
 
     //ALERTS
     const

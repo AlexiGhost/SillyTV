@@ -24,15 +24,50 @@ class PlanningManager
     }
 //GETTERS / SETTERS
     public function getPlannings(bool $currentUserOnly = false){
-        //TODO implement method
-        throw new LogicException();
+        $plannings = [];
+
+        $sql = "SELECT * FROM planning";
+        if($currentUserOnly)
+            $sql = $sql." WHERE pseudo = :user";
+        $query = $this->_connection->getDB()->prepare($sql);
+        if($currentUserOnly)
+            $query->bindParam("user", $_SESSION[SessionData::USER][SessionData::USER_PSEUDO]);
+        $query->execute();
+        while($planning = $query->fetch()) {
+            array_push($plannings, new Planning(
+                $planning[PlanningData::PLANNING_PSEUDO],
+                $planning[PlanningData::PLANNING_DAY],
+                $planning[PlanningData::PLANNING_GAME],
+                $planning[PlanningData::PLANNING_SCHEDULE],
+                $planning[PlanningData::PLANNING_ID]
+            ));
+        }
+        return $plannings;
     }
 
     public function getDailyPlannings(int $day, bool $currentUserOnly = false){
-        //TODO implement method
-        throw new LogicException();
+        $plannings = [];
+
+        $sql = "SELECT * FROM planning WHERE day = ".$day;
+        if($currentUserOnly)
+            $sql = $sql." AND pseudo = :user";
+        $query = $this->_connection->getDB()->prepare($sql);
+        if($currentUserOnly)
+            $query->bindParam("user", $_SESSION[SessionData::USER][SessionData::USER_PSEUDO]);
+        $query->execute();
+        while($planning = $query->fetch()) {
+            array_push($plannings, new Planning(
+                $planning[PlanningData::PLANNING_PSEUDO],
+                $planning[PlanningData::PLANNING_DAY],
+                $planning[PlanningData::PLANNING_GAME],
+                $planning[PlanningData::PLANNING_SCHEDULE],
+                $planning[PlanningData::PLANNING_ID]
+            ));
+        }
+        return $plannings;
     }
 
+    //FIXME use another authorization system
     public function getAllowedPlanning(int $day = 0){
         if(!isset($sManager)){ $sManager = sessionManager::getInstance(); }
         if($sManager->isAuthorized(2)){
@@ -51,7 +86,23 @@ class PlanningManager
     }
 
     public function getDayCount(int $day, bool $currentUserOnly = false){
-        //TODO implement method
-        throw new LogicException();
+        $sql = "SELECT * FROM planning WHERE day = ".$day;
+        if($currentUserOnly)
+            $sql = $sql." AND pseudo = :user";
+        $query = $this->_connection->getDB()->prepare($sql);
+        if($currentUserOnly)
+            $query->bindParam("user", $_SESSION[SessionData::USER][SessionData::USER_PSEUDO]);
+        $query->execute();
+        return $query->fetchColumn();
+    }
+
+    public function addPlanning(Planning $planning) {
+        $sql = "INSERT INTO planning (pseudo, day, game, schedule) VALUES ("
+            .$planning->getPseudo().","
+            .$planning->getDay().","
+            .$planning->getGame().","
+            .$planning->getSchedule().")";
+        $query = $this->_connection->getDB()->prepare($sql);
+        $query->execute();
     }
 }
