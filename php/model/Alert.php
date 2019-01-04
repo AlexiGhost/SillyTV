@@ -43,9 +43,13 @@ class Alert
     }
     //METHODS
     public function __tostring() {
-        //TODO implement method
-        throw new LogicException("not implemented");
-        return "";
+        return
+            '<div class="alert alert-'.$this->_type.' alert dismissible fade show" role="alert">'
+                .$this->_message
+                .'<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>'
+            .'</div>';
     }
     //Getters/Setters
     public function getMessage() {
