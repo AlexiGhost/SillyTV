@@ -19,6 +19,7 @@ class Label
         DISCONNECTED = "Vous avez été deconnecté",
         AUTHENTICATION_REQUIRED = "Authentification requise",
         WELCOME = "Bienvenue",
-        SESSION_INACTIVE = "Vous n'êtes pas connecté";
+        SESSION_INACTIVE = "Vous n'êtes pas connecté",
+        CONNECTION_FAILED = "Echec de la connection : ";
     //==================================================================================================================
 }
