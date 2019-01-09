@@ -21,5 +21,6 @@ class Label
         WELCOME = "Bienvenue",
         SESSION_INACTIVE = "Vous n'êtes pas connecté",
         USER_INACTIVE = "Ce compte est desactivé";
+        CONNECTION_FAILED = "Echec de la connection : ";
     //==================================================================================================================
 }
