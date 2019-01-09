@@ -6,9 +6,9 @@
  * Time: 23:27
  */
 
-require_once(__DIR__."/../model/Article.php");
-require_once(__DIR__."/../model/Connection.php");
-require_once(__DIR__."/SessionManager.php");
+require_once(__DIR__ . "/../model/Article.php");
+require_once(__DIR__ . "/../model/Connection.php");
+require_once(__DIR__ . "/SessionManager.php");
 
 class ArticleManager
 {
@@ -22,7 +22,6 @@ class ArticleManager
 
 //GETTERS / SETTERS
     private function getArticles(bool $currentUserOnly = false, int $limit = null){
-        //TODO implement method
         $articles = [];
 
         $sql = "SELECT * FROM article";
@@ -36,21 +35,20 @@ class ArticleManager
         $query->execute();
         while($article = $query->fetch()){
             array_push($articles, new Article(
-                $article[ArticleData::ARTICLE_AUTHOR],
-                $article[ArticleData::ARTICLE_TITLE] ,
-                $article[ArticleData::ARTICLE_CONTENT],
-                $article[ArticleData::ARTICLE_CREATION_DATE],
-                $article[ArticleData::ARTICLE_ID]));
+                $article[ArticleData::AUTHOR],
+                $article[ArticleData::TITLE] ,
+                $article[ArticleData::CONTENT],
+                $article[ArticleData::CREATION_DATE],
+                $article[ArticleData::ID]));
         }
 
         return $articles;
     }
 
     //Administration
-    //FIXME use another authorization system
     public function getAllowedArticles() {
         $sManager = SessionManager::getInstance();
-        if($sManager->isAuthorized(2)){
+        if($sManager->isAuthorized(GroupData::EDIT_ARTICLE_GLOBAL)){
             return $this->getArticles();
         } else {
             return $this->getArticles(true);
@@ -68,7 +66,11 @@ class ArticleManager
             .$article->getTitle().","
             .$article->getContent().","
             .$article->getCreationDate().")";
-        $query = $this->_connection->getDB()->prepare($sql);
-        $query->execute();
+        $this->_connection->getDB()->prepare($sql)->execute();
+    }
+
+    public function deleteArticle(int $id) {
+        $sql = "DELETE FROM article WHERE id = ".$id;
+        $this->_connection->getDB()->prepare($sql)->execute();
     }
 }

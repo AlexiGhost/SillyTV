@@ -6,8 +6,8 @@
  * Time: 23:27
  */
 
-require_once(__DIR__."/../model/Planning.php");
-require_once(__DIR__."/../model/Connection.php");
+require_once(__DIR__ . "/../model/Planning.php");
+require_once(__DIR__ . "/../model/Connection.php");
 
 class PlanningManager
 {
@@ -35,11 +35,11 @@ class PlanningManager
         $query->execute();
         while($planning = $query->fetch()) {
             array_push($plannings, new Planning(
-                $planning[PlanningData::PLANNING_PSEUDO],
-                $planning[PlanningData::PLANNING_DAY],
-                $planning[PlanningData::PLANNING_GAME],
-                $planning[PlanningData::PLANNING_SCHEDULE],
-                $planning[PlanningData::PLANNING_ID]
+                $planning[PlanningData::PSEUDO],
+                $planning[PlanningData::DAY],
+                $planning[PlanningData::GAME],
+                $planning[PlanningData::SCHEDULE],
+                $planning[PlanningData::ID]
             ));
         }
         return $plannings;
@@ -57,20 +57,19 @@ class PlanningManager
         $query->execute();
         while($planning = $query->fetch()) {
             array_push($plannings, new Planning(
-                $planning[PlanningData::PLANNING_PSEUDO],
-                $planning[PlanningData::PLANNING_DAY],
-                $planning[PlanningData::PLANNING_GAME],
-                $planning[PlanningData::PLANNING_SCHEDULE],
-                $planning[PlanningData::PLANNING_ID]
+                $planning[PlanningData::PSEUDO],
+                $planning[PlanningData::DAY],
+                $planning[PlanningData::GAME],
+                $planning[PlanningData::SCHEDULE],
+                $planning[PlanningData::ID]
             ));
         }
         return $plannings;
     }
 
-    //FIXME use another authorization system
     public function getAllowedPlanning(int $day = 0){
         if(!isset($sManager)){ $sManager = sessionManager::getInstance(); }
-        if($sManager->isAuthorized(2)){
+        if($sManager->isAuthorized(GroupData::EDIT_PLANNING_GLOBAL)){
             if($day == 0){
                 return $this->getPlannings();
             } else {
@@ -102,7 +101,11 @@ class PlanningManager
             .$planning->getDay().","
             .$planning->getGame().","
             .$planning->getSchedule().")";
-        $query = $this->_connection->getDB()->prepare($sql);
-        $query->execute();
+        $this->_connection->getDB()->prepare($sql)->execute();
+    }
+
+    public function deletePlanning(int $id) {
+        $sql = "DELETE FROM planning WHERE id = ".$id;
+        $this->_connection->getDB()->prepare($sql)->execute();
     }
 }

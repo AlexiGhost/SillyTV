@@ -7,13 +7,13 @@
  */
 
 session_start();
-require_once(__DIR__."/../model/Encrypt.php");
-require_once(__DIR__."/../model/Connection.php");
-require_once(__DIR__."/AlertManager.php");
-require_once(__DIR__."/../model/Alert.php");
+require_once(__DIR__ . "/../model/Encrypt.php");
+require_once(__DIR__ . "/../model/Connection.php");
+require_once(__DIR__ . "/AlertManager.php");
+require_once(__DIR__ . "/../model/Alert.php");
 
-$connection = isset($connection) ? $connection : new Connection();
 $sManager = SessionManager::getInstance();
+
 if(!isset($_SESSION[SessionData::USER])){
     if(isset($_POST['name']) && isset($_POST['password'])){
         $sManager->login($connection);
@@ -23,6 +23,10 @@ if(!isset($_SESSION[SessionData::USER])){
         $sManager->destroySession();
     }
 }
+
+/**
+ * Class SessionManager
+ */
 class SessionManager
 {
     private static $instance = NULL;
@@ -47,7 +51,7 @@ class SessionManager
      */
     public function isSessionActive(){
         if(session_status() == PHP_SESSION_ACTIVE){
-            if(isset($_SESSION[SessionData::USER][SessionData::USER_LEVEL]) && isset($_SESSION[SessionData::USER][SessionData::USER_PSEUDO])) {
+            if(isset($_SESSION[SessionData::USER][SessionData::USER_GROUP]) && isset($_SESSION[SessionData::USER][SessionData::USER_PSEUDO])) {
                 return true;
             }
         }
@@ -56,19 +60,21 @@ class SessionManager
         return false;
     }
 
-    /**Check if the current session is allowed to perform an action
-     * @param $requiredLevel
+
+    /**
+     * @param $action - available actions in GroupData
      * @return bool
-     * @deprecated level system replaced by authorisation table
      */
-    public function isAuthorized($requiredLevel){
+    public function isAuthorized($action){
         if($this->isSessionActive()){
-            if($_SESSION[SessionData::USER][SessionData::USER_LEVEL] <= $requiredLevel){
+            $sql = "SELECT ".$action." FROM user_group WHERE id = ".$_SESSION[SessionData::USER][SessionData::USER_GROUP];
+            $query = Connection::getInstance()->getDB()->prepare($sql);
+            $query->execute();
+            if($query->fetchColumn() == 1)
                 return true;
-            } else {
-                AlertManager::addAlert(Label::OPERATION_NOT_ALLOWED, AlertType::DANGER);
+            else
+                AlertManager::addAlert(Label::OPERATION_NOT_ALLOWED, AlertType::WARNING);
                 http_response_code(HttpResponseCode_ErrorClient::FORBIDDEN);
-            }
         }
         return false;
     }
@@ -85,10 +91,14 @@ class SessionManager
             $query->execute();
             if($query->rowCount() > 0){
                 $user = $query->fetch();
-                if($this->_encrypt->checkPassword($_POST['password'], $user[UserData::USER_PASSWORD])){
-                    $_SESSION[SessionData::USER][SessionData::USER_PSEUDO]=$user[UserData::USER_PSEUDO];
-                    $_SESSION[SessionData::USER][SessionData::USER_LEVEL]=$user[UserData::USER_LEVEL];
-                    AlertManager::addAlert(Label::WELCOME." ".$_SESSION[SessionData::USER][SessionData::USER_PSEUDO], AlertType::INFO);
+                if($this->_encrypt->checkPassword($_POST['password'], $user[UserData::PASSWORD])){
+                    if($user[UserData::ACTIVE]){
+                        $_SESSION[SessionData::USER][SessionData::USER_PSEUDO]=$user[UserData::PSEUDO];
+                        $_SESSION[SessionData::USER][SessionData::USER_GROUP]=$user[UserData::GROUP];
+                        AlertManager::addAlert(Label::WELCOME." ".$_SESSION[SessionData::USER][SessionData::USER_PSEUDO], AlertType::INFO);
+                    } else {
+                        AlertManager::addAlert(Label::USER_INACTIVE, AlertType::DANGER);
+                    }
                 } else {
                     AlertManager::addAlert(Label::INCORRECT_PASSWORD, AlertType::DANGER);
                 }
